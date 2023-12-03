@@ -1,116 +1,76 @@
 "use client"
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react'
+import Test from './singleTest'
 
-const Home = () => {
+function Home() {
+  const [phase, setPhase] = useState("user")
+  const [reactionTime, setReactionTime] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [startTime, setStartTime] = useState(null);
-  const [testActive, setTestActive] = useState(false);
-  const [listeningToInput, setListeningToInput] = useState(false);
-  const [responseMessage, setResponseMessage] = useState('');
-  const [allLetters, setAllLetters] = useState([])
-  const [currentLetter, setCurrentLetter] = useState()
-  const [time1, setTime1] = useState()
-  const [time2, setTime2] = useState()
-  const ref = useRef();
-  const targetLetter = 'T';
+  const [currentTest, setCurrentTest] = useState(0)
+	const [order, setOrder] = useState([])
+  const [isActive, setIsActive] = useState(false)
+  const [data, setData] = useState({
+    age:"",
+    gender: "",
+    result1: null,
+    result2: null,
+    result3: null
+  })
 
-  const generateRandomLetter = () => {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').filter(letter => letter !== targetLetter);
-    const randomIndex = Math.floor(Math.random() * letters.length);
-    return letters[randomIndex];
-  };
-
-  const generateRandomArray = (length) => {
-    return Array.from({ length }, () => generateRandomLetter());
-  };
-
-  const placeTInMiddle = (arr) => {
-    // Insert 'T' in the middle of the array
-    const middleIndex = Math.floor(arr.length / 2);
-    const newArray = [...arr];
-    newArray.splice(middleIndex, 0, targetLetter);
-    return newArray;
-  };
-
-  const handleKeyDown = (event) => {
-    if (listeningToInput) {
-      console.log(`Current letter: ${currentLetter}`)
-      const userResponseTime = performance.now() - startTime;
-      setListeningToInput(false);
-      console.log(`Your reaction time: ${userResponseTime} ms`)
-    }
-  }
+	const shuffleOrder = () => {
+		setOrder([1,2,3].sort(() => .5 - Math.random()))
+	}
 
   useEffect(() => {
-    if(allLetters.length == 0) {
-      setAllLetters(placeTInMiddle(generateRandomArray(15)))
+    shuffleOrder()
+  },[])
+
+	useEffect(() => {
+    console.log(currentTest)
+    setCurrentTest(order[currentIndex])
+
+    if(currentIndex < order.length && isActive) {
+      setData({...data, [`result${order[currentIndex]}`]: reactionTime})
+      setCurrentIndex((prevIndex) => prevIndex + 1);
     }
-  }, [])
-
-  useEffect(() => {
-    if(testActive && currentIndex == 0) {
-      setCurrentLetter("+")
-      // setTimeout(100000)
+    if(currentIndex === order.length) {
+      setPhase("save")
     }
-    if (testActive && currentIndex < allLetters.length) {
-      setTimeout(() => {
-        setCurrentLetter("")
-        setTimeout(() => {
-          showNextLetter();
-        }, 50); // Pause between
-      }, 150); // Time letter is shown
-      
-    } else if (testActive && currentIndex === allLetters.length) {
-      console.log("Complete")
-      setListeningToInput(false);
-      setTestActive(false);
-      setCurrentIndex(0)
-    }
-  }, [currentIndex, testActive, allLetters.length]);
-
-  const startTest = () => {
-    setTestActive(true);
-    setTime1(performance.now())
-  };
-
-  const showNextLetter = () => {
-    const thisLetter = allLetters[currentIndex];
-    setCurrentLetter(allLetters[currentIndex])    
-    if (currentIndex < allLetters.length) {
-      if (thisLetter === targetLetter) {
-        setListeningToInput(true);
-        setStartTime(performance.now());
-        console.log("Start listen")
-      }
-    }
-    console.log(`Laiks: ${performance.now() - time1}`)
-    setCurrentIndex((prevIndex) => prevIndex + 1);
-  };
-
-  return (
-    <div className='flex flex-col min-h-screen justify-center items-center'>
-      <div className='flex h-64 justify-center items-center text-9xl'>
-        {testActive && currentIndex < allLetters.length ? currentLetter : ''}
-        {/* {console.log(`Burts: ${currentLetter}`)} */}
-      </div>
-
-      {testActive &&
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={handleKeyDown}>
-          Spied šeit
-        </button>
-      }
-
     
-      {!testActive && 
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" disabled={listeningToInput} onClick={startTest}>
-          Sākt testu
+  }, [reactionTime, order, isActive])
+  console.log(phase)
+
+	return (
+		<>
+
+      {phase === "user" &&
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={(e) => {setPhase("test")}}>
+            Uz testu
+          </button>
+
+      }
+
+
+      {(phase === "test" && currentTest == 1) &&
+        <Test testNumber={1} setReactionTime={setReactionTime} setIsActive={setIsActive}/>
+      }
+
+      {(phase === "test" && currentTest == 2) &&
+        <Test testNumber={2} setReactionTime={setReactionTime} setIsActive={setIsActive}/>
+      }
+
+      {(phase === "test" && currentTest == 3) &&
+        <Test testNumber={3} setReactionTime={setReactionTime} setIsActive={setIsActive}/>
+      }
+
+      {phase === "save" &&
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={(e) => {setPhase("user")}}>
+          Uz testu
         </button>
       }
-      
-    </div>
-  );
-};
+		</>
+	)
+}
 
-export default Home;
-
+export default Home
 
