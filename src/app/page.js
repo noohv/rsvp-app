@@ -26,19 +26,22 @@ function Home() {
   },[])
 
 	useEffect(() => {
-    console.log(currentTest)
     setCurrentTest(order[currentIndex])
 
-    if(currentIndex < order.length && isActive) {
-      setData({...data, [`result${order[currentIndex]}`]: reactionTime})
+    if(isActive) {
+      if(currentIndex < order.length) {
+        setData({...data, [`result${order[currentIndex]}`]: reactionTime})
+        setReactionTime(null)
+      }
       setCurrentIndex((prevIndex) => prevIndex + 1);
-    }
-    if(currentIndex === order.length) {
-      setPhase("save")
+      setIsActive(false)
+      if(currentIndex == order.length) {
+        setPhase("save")
+      }
     }
     
   }, [reactionTime, order, isActive])
-  console.log(phase)
+  console.log(data)
 
 	return (
 		<>
@@ -63,11 +66,16 @@ function Home() {
         <Test testNumber={3} setReactionTime={setReactionTime} setIsActive={setIsActive}/>
       }
 
-      {phase === "save" &&
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={(e) => {setPhase("user")}}>
-          Uz testu
-        </button>
+      {phase === "save" && 
+        (
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={(e) => {setPhase("user")}}>
+            Uz sakumu
+          </button>
+        )
       }
+      <pre>
+        {JSON.stringify(data)}
+      </pre>
 		</>
 	)
 }

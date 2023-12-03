@@ -68,14 +68,14 @@ const Test = ({testNumber, setReactionTime,setIsActive}) => {
     } else if (testActive && currentIndex === allLetters.length) {
       setListeningToInput(false);
       setTestActive(false);
-      setIsActive(false)
+      setIsActive(true)
       setCurrentIndex(0)
     }
   }, [currentIndex, testActive, allLetters.length]);
 
   const startTest = () => {
     setTestActive(true);
-    setIsActive(true)
+    setIsActive(false)
   };
 
   const showNextLetter = () => {
