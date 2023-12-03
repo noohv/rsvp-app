@@ -17,6 +17,21 @@ function Home() {
     result3: null
   })
 
+  const handleReset = (e) => {
+    setPhase("user")
+    setData({
+      age:"",
+      gender: "",
+      result1: null,
+      result2: null,
+      result3: null
+    })
+    shuffleOrder()
+    setReactionTime(null)
+    setCurrentIndex(0)
+    setCurrentTest(0)
+  }
+
 	const shuffleOrder = () => {
 		setOrder([1,2,3].sort(() => .5 - Math.random()))
 	}
@@ -35,9 +50,9 @@ function Home() {
       }
       setCurrentIndex((prevIndex) => prevIndex + 1);
       setIsActive(false)
-      if(currentIndex == order.length) {
-        setPhase("save")
-      }
+    }
+    if(currentIndex == 3 && !isActive) {
+      setPhase("save")
     }
     
   }, [reactionTime, order, isActive])
@@ -68,14 +83,19 @@ function Home() {
 
       {phase === "save" && 
         (
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={(e) => {setPhase("user")}}>
-            Uz sakumu
-          </button>
+          <>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={handleReset}>
+              Uz sākumu
+            </button>
+
+            <pre>
+              {JSON.stringify(data)}
+            </pre>
+          </>
         )
       }
-      <pre>
-        {JSON.stringify(data)}
-      </pre>
+
+
 		</>
 	)
 }
