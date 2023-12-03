@@ -9,6 +9,8 @@ const Home = () => {
   const [responseMessage, setResponseMessage] = useState('');
   const [allLetters, setAllLetters] = useState([])
   const [currentLetter, setCurrentLetter] = useState()
+  const [time1, setTime1] = useState()
+  const [time2, setTime2] = useState()
   const ref = useRef();
   const targetLetter = 'T';
 
@@ -55,8 +57,8 @@ const Home = () => {
         setCurrentLetter("")
         setTimeout(() => {
           showNextLetter();
-        }, 100); // Pause between
-      }, 1000); // Time letter is shown
+        }, 50); // Pause between
+      }, 150); // Time letter is shown
       
     } else if (testActive && currentIndex === allLetters.length) {
       console.log("Complete")
@@ -68,18 +70,20 @@ const Home = () => {
 
   const startTest = () => {
     setTestActive(true);
+    setTime1(performance.now())
   };
 
   const showNextLetter = () => {
-    const currentLetter = allLetters[currentIndex];
-    setCurrentLetter(allLetters[currentIndex])
+    const thisLetter = allLetters[currentIndex];
+    setCurrentLetter(allLetters[currentIndex])    
     if (currentIndex < allLetters.length) {
-      if (currentLetter === targetLetter) {
+      if (thisLetter === targetLetter) {
         setListeningToInput(true);
         setStartTime(performance.now());
         console.log("Start listen")
       }
     }
+    console.log(`Laiks: ${performance.now() - time1}`)
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
@@ -87,9 +91,14 @@ const Home = () => {
     <div className='flex flex-col min-h-screen justify-center items-center'>
       <div className='flex h-64 justify-center items-center text-9xl'>
         {testActive && currentIndex < allLetters.length ? currentLetter : ''}
-        {console.log(currentLetter)}
+        {/* {console.log(`Burts: ${currentLetter}`)} */}
       </div>
-      <button onClick={handleKeyDown}>spied</button>
+
+      {testActive &&
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={handleKeyDown}>
+          Spied šeit
+        </button>
+      }
 
     
       {!testActive && 
@@ -98,8 +107,6 @@ const Home = () => {
         </button>
       }
       
-
-
     </div>
   );
 };
