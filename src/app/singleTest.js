@@ -8,17 +8,18 @@ const Test = ({testNumber, setReactionTime,setIsActive}) => {
   const [listeningToInput, setListeningToInput] = useState(false);
   const [allLetters, setAllLetters] = useState([])
   const [currentLetter, setCurrentLetter] = useState()
+  const [showCross, setShowCross] = useState(false)
   const targetLetter = 'T';
 
   const generateRandomLetter = () => {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').filter(letter => letter !== targetLetter);
     const randomIndex = Math.floor(Math.random() * letters.length);
     return letters[randomIndex];
-  };
+  }
 
   const generateRandomArray = (length) => {
     return Array.from({ length }, () => generateRandomLetter());
-  };
+  }
 
   const placeT = (arr) => {
     let index = 9
@@ -53,37 +54,40 @@ const Test = ({testNumber, setReactionTime,setIsActive}) => {
   }, [])
   
   useEffect(() => {
-    if(testActive && currentIndex == 0) {
+    if(testActive && showCross && currentIndex == 0) {
       setCurrentLetter("+")
-      // setTimeout(100000)
+      setTimeout(() => {
+        setShowCross(false)
+      }, 3000);
     }
-    if (testActive && currentIndex < allLetters.length) {
+    if (testActive && !showCross &&currentIndex < allLetters.length) {
       setTimeout(() => {
         setCurrentLetter("")
         setTimeout(() => {
-          showNextLetter();
+          showNextLetter()
         }, 50); // Pause between
       }, 150); // Time letter is shown
       
     } else if (testActive && currentIndex === allLetters.length) {
-      setListeningToInput(false);
-      setTestActive(false);
+      setListeningToInput(false)
+      setTestActive(false)
       setIsActive(true)
       setCurrentIndex(0)
     }
-  }, [currentIndex, testActive, allLetters.length]);
+  }, [currentIndex, testActive, allLetters.length, showCross]);
 
   const startTest = () => {
-    setTestActive(true);
-    setIsActive(false)
-  };
+    setShowCross(true)
+    setTestActive(true)
+    setIsActive(false)  
+  }
 
   const showNextLetter = () => {
     const thisLetter = allLetters[currentIndex];
     setCurrentLetter(allLetters[currentIndex])    
     if (currentIndex < allLetters.length) {
       if (thisLetter === targetLetter) {
-        setListeningToInput(true);
+        setListeningToInput(true)
         setStartTime(performance.now());
       }
     }
