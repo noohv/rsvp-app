@@ -13,7 +13,7 @@ const Tutorial = ({currentIndex}) => {
         }
 
         {(currentIndex == 1 || currentIndex == 2) && 
-            <p className='text-center'>
+            <p className='text-justify'>
                 Spied "Sākt testu", lai sāktu nākamo testu
             </p>
         }
