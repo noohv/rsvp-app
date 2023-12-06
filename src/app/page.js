@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import dynamic from "next/dynamic"
 import Test from './singleTest'
-import Tutorial from './tutorial'
+import Tutorial from './tuto'
 
 const SurveyMy = dynamic(() => import("./survey"), {
   ssr: false,
