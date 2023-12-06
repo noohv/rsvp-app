@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react'
+import { supabase } from '../../lib/initSupabase';
 import dynamic from "next/dynamic"
 import Test from './singleTest'
 import Tutorial from './tuto'
@@ -22,6 +23,15 @@ function Home() {
     result2: null,
     result3: null
   })
+
+  const saveData = async (e) => {
+    const { dat, error } = await supabase
+    .from('data')
+    .insert([
+      data
+    ])
+    console.log(error)
+  }
 
   const handleReset = (e) => {
     setPhase("survey")
@@ -96,6 +106,9 @@ function Home() {
           <>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={handleReset}>
               Uz sākumu
+            </button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={saveData}>
+              Saglabat
             </button>
 
             <pre>
