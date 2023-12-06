@@ -1,10 +1,10 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import dynamic from "next/dynamic"
-import Test from './SingleTest'
-import Tutorial from './Tutorial'
+import Test from './singleTest'
+import Tutorial from './tutorial'
 
-const SurveyMy = dynamic(() => import("./Survey"), {
+const SurveyMy = dynamic(() => import("./survey"), {
   ssr: false,
 })
 

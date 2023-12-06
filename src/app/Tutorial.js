@@ -5,17 +5,17 @@ const Tutorial = ({currentIndex}) => {
   return (
     <div className='absolute top-50 right-50 w-2/4'>
         {currentIndex == 0 && 
-            <div className='flex '>
+            <p className='text-justify'>
                 Tālāk būs 3 testi. Katra testā sākumā aptuveni sekundi tiks rādīts "+" simbols, pēc tā ļoti ātri sāks mainīties burti.
                 Brīdī, kad redzi burtu "T" pēc iespējas ātrāk spied pogu.
                 Ja viss ir skaidrs, tad spied uz "Sākt testu"
-            </div>
+            </p>
         }
 
         {(currentIndex == 1 || currentIndex == 2) && 
-            <div className='flex '>
+            <p className='text-center'>
                 Spied "Sākt testu", lai sāktu nākamo testu
-            </div>
+            </p>
         }
     </div>
   )
