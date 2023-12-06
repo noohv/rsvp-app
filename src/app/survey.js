@@ -6,6 +6,7 @@ import { Survey } from 'survey-react-ui';
 
 
 const surveyJson = {
+  completeText: "Turpināt",
   elements: [{
     name: "sex",
     title: "Jūsu dzimums:",
@@ -74,8 +75,16 @@ const surveyJson = {
 };
 
 
-const SurveyMy = () => {
-  const survey = new Model(surveyJson);
+const SurveyMy = ({setPhase, data, setData}) => {
+  const survey = new Model(surveyJson)
+  survey.onComplete.add((sender, options) => {
+    // console.log(JSON.stringify(sender.data, null, 3))
+    sender.showCompletedPage = false
+    setPhase("test")
+    setData({...data, surveyAnswers: sender.data})
+
+  })
+
   return (
     <Survey model={survey} />
   )

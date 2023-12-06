@@ -1,7 +1,7 @@
 "use client"
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react'
 
-const Test = ({testNumber, setReactionTime,setIsActive}) => {
+const Test = ({testNumber, setReactionTime, setIsActive, setShowTutorial}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startTime, setStartTime] = useState(null);
   const [testActive, setTestActive] = useState(false);
@@ -73,6 +73,7 @@ const Test = ({testNumber, setReactionTime,setIsActive}) => {
       setTestActive(false)
       setIsActive(true)
       setCurrentIndex(0)
+      setShowTutorial(true)
     }
   }, [currentIndex, testActive, allLetters.length, showCross]);
 
@@ -80,6 +81,7 @@ const Test = ({testNumber, setReactionTime,setIsActive}) => {
     setShowCross(true)
     setTestActive(true)
     setIsActive(false)  
+    setShowTutorial(false)
   }
 
   const showNextLetter = () => {
@@ -95,7 +97,7 @@ const Test = ({testNumber, setReactionTime,setIsActive}) => {
   };
 
   return (
-    <div className='flex flex-col min-h-screen justify-center items-center'>
+    <div className='flex flex-col justify-center items-center'>
       <div className='flex h-64 justify-center items-center text-9xl'>
         {testActive && currentIndex < allLetters.length ? currentLetter : ''}
       </div>
@@ -107,10 +109,12 @@ const Test = ({testNumber, setReactionTime,setIsActive}) => {
       }
 
     
-      {!testActive && 
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" disabled={listeningToInput} onClick={startTest}>
-          Sākt testu
-        </button>
+      {!testActive &&
+        <>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" disabled={listeningToInput} onClick={startTest}>
+            Sākt testu
+          </button>
+        </> 
       }
       
     </div>
