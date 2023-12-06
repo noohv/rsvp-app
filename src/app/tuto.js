@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
 const Tutorial = ({currentIndex}) => {
-    console.log("Tutorial")
   return (
     <div className='absolute top-50 right-50 w-2/4'>
         {currentIndex == 0 && 

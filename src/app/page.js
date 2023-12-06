@@ -99,7 +99,7 @@ function Home() {
             </button>
 
             <pre>
-              {JSON.stringify(data)}
+              {JSON.stringify(data, null, 3)}
             </pre>
           </>
         )

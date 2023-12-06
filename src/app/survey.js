@@ -7,59 +7,169 @@ import { Survey } from 'survey-react-ui';
 
 const surveyJson = {
   completeText: "Turpināt",
+  title: "RSVP Reakcijas tests",
+  description: "Lūdzu sniedziet informāciju par sevi!",
   elements: [{
-    name: "sex",
+    name: "dzimums",
     title: "Jūsu dzimums:",
+    isRequired: true,
     type: "radiogroup",
     choices: ["Vīrietis", "Sieviete", "Cits"]
   }, 
   {
-    name: "age",
+    name: "vecums",
     title: "Jūsu vecums:",
+    isRequired: true,
     type: "text"
   },
   {
-    type: "checkbox",
-    name: "promoter-features",
-    title: {
-      default: "Which of the following features do you value the most?",
-    },
-    description: {
-      default: "Please select no more than three features.",
-    },
+    name: "izglitibas_joma",
+    title: "Jūsu izglītības joma",
+    type: "radiogroup",
     isRequired: true,
     choices: [
       {
-        value: "performance",
-        text: "Performance"
+        value: "skolens",
+        text: "Skolēns"
       },
       {
-        value: "stability",
-        text: {
-          default: "Stability",
-        }
+        value: "socialas_zinatnes",
+        text: "Sociālās zinātnes"
       },
       {
-        value: "ui",
-        text: {
-          default: "User interface",
-        }
+        value: "dabas_zinatnes",
+        text: "Dabas zinātnes"
       },
       {
-        value: "complete-functionality",
-        text: {
-          default: "Complete functionality",
-        }
+        value: "inzenierzinatnes",
+        text: "Inženierzinātnes"
       },
       {
-        value: "learning-materials",
-        text: {
-          default: "Learning materials (documentation, demos, code examples)",
-        }
+        value: "humanitaras",
+        text: "Humanitārās zinātnes"
       },
       {
-        value: "support",
-        text: ""
+        value: "veselibas_aprupe",
+        text: "Veselības aprūpe"
+      },
+      {
+        value: "pakalpojumi",
+        text: "Pakalpojumi"
+      },
+      {
+        value: "izglitiba",
+        text: "Izglītība"
+      },
+      {
+        value: "maksla",
+        text: "Māksla"
+      }
+    ],
+    showOtherItem: true,
+    otherPlaceholder: {
+      default: "",
+    },
+    otherText: {
+      default: "Cits",
+    }
+  },
+  {
+    name: "nodarbosanas",
+    title: "Jūsu nodarbošanās",
+    type: "radiogroup",
+    isRequired: true,
+    choices: [
+      {
+        value: "vaditajs",
+        text: "Augstākā vai vidējā līmeņa vadītājs"
+      },
+      {
+        value: "specialists",
+        text: "Speciālists, ierēdnis"
+      },
+      {
+        value: "stradnieks",
+        text: "Strādnieks, strādā fizisku darbu"
+      },
+      {
+        value: "zemnieks",
+        text: "Zemnieks (ir sava zemnieku saimniecība)"
+      },
+      {
+        value: "uznemejs",
+        text: "Ir savs uzņēmums, individuālais darbs"
+      },
+      {
+        value: "students",
+        text: "Skolēns, students"
+      },
+      {
+        value: "majsaimniece",
+        text: "Mājsaimniece (-ks), bērna kopšanas atvaļinājums"
+      },
+      {
+        value: "bezdarbnieks",
+        text: "Bezdarbnieks"
+      }
+    ],
+    showOtherItem: true,
+    otherPlaceholder: {
+      default: "",
+    },
+    otherText: {
+      default: "Cits",
+    }
+  },
+  {
+    name: "roka",
+    title: "Jūs esat:",
+    type: "radiogroup",
+    isRequired: true,
+    choices: [
+      {
+        value: "right_handed",
+        text: "Labrocis"
+      },
+      {
+        value: "left_handed",
+        text: "Kreilis"
+      }
+    ]
+  },
+  {
+    type: "checkbox",
+    name: "hobiji",
+    title: "Kādi ir jūsu hobiji?",
+    description: "Iespējamas vairākas atbildes",
+    isRequired: true,
+    choices: [
+      {
+        value: "speles",
+        text: "Videospeles, datorspēles"
+      },
+      {
+        value: "ara_aktivitates",
+        text: "Āra aktivitātes (makšķerēšana, medības, pārgājieni, laivošana u.c)"
+      },
+      {
+        value: "sports",
+        text: "Sports (sporta spēles, skriešana, riteņbraukšana u.c.)"
+      },
+      {
+        value: "galda_speles",
+        text: "Galda, āra spēles, puzles u.c."
+      },
+      {
+        value: "dejosana",
+        text: "Dejošana"
+      },
+      {
+        value: "muzicesana",
+        text: "Muzicēšana (spēlēt mūzikas instrumentus)"
+      },
+      {
+        value: "vizuala_maksla",
+        text: "Vizuālā māksla (zīmēšana, gleznošana, tēlniecība u.c)"
       }
     ],
     showOtherItem: true,
@@ -69,6 +179,23 @@ const surveyJson = {
     otherText: {
       default: "Cits",
     },
+  },
+  {
+    visibleIf: "{hobiji} contains 'speles'",
+    type: "radiogroup",
+    name: "speles",
+    title: "Cik bieži spēlējat datorspēles?",
+    isRequired: true,
+    choices: [
+      {
+        value: "maz",
+        text: "Maz"
+      },
+      {
+        value: "daudz",
+        text: "Daudz"
+      },
+    ]
   }
 
 ]
@@ -78,7 +205,7 @@ const surveyJson = {
 const SurveyMy = ({setPhase, data, setData}) => {
   const survey = new Model(surveyJson)
   survey.onComplete.add((sender, options) => {
-    // console.log(JSON.stringify(sender.data, null, 3))
+    console.log(JSON.stringify(sender.data, null, 3))
     sender.showCompletedPage = false
     setPhase("test")
     setData({...data, surveyAnswers: sender.data})
