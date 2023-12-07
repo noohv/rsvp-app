@@ -58,7 +58,7 @@ const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) =
       setCurrentLetter("+")
       setTimeout(() => {
         setShowCross(false)
-      }, 3000)
+      }, 2000)
     }
     if (testActive && !showCross && currentIndex < allLetters.length) {
       setTimeout(() => {
@@ -76,7 +76,7 @@ const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) =
         setTestFinished(true)
         setCurrentIndex(0)
         setShowTutorial(true)
-      }, 3000)
+      }, 2000)
 
     }
   }, [currentIndex, testActive, allLetters.length, showCross])
