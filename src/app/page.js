@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import { supabase } from '../../lib/initSupabase';
+import { supabase } from '../../lib/initSupabase'
 import dynamic from "next/dynamic"
 import Test from './singleTest'
 import Tutorial from './tuto'
@@ -13,7 +13,7 @@ function Home() {
   const [phase, setPhase] = useState("survey")
   const [showTutorial, setShowTutorial] = useState(true)
   const [reactionTime, setReactionTime] = useState(null)
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0)
   const [currentTest, setCurrentTest] = useState(0)
 	const [order, setOrder] = useState([])
   const [testFinished, setTestFinished] = useState(false)
@@ -38,6 +38,10 @@ function Home() {
     }
   }
 
+  // [2, 3, 1]
+  const displayResults = order.map((number, index) => (
+    <li key={index + 1}>{index + 1}. tests: {data[`result${number}`] != null ? Math.round(data[`result${number}`]) : "Nav fiksēts"} ms</li>
+  ))
 
 
   const handleReset = () => {
@@ -76,6 +80,7 @@ function Home() {
     }
     if(currentIndex == 3 && !testFinished) {
       setPhase("save")
+      console.log(JSON.stringify(data, null, 3))
     }
     
   }, [reactionTime, order, testFinished])
@@ -126,13 +131,16 @@ function Home() {
       {phase === "save" && 
         (
           <>
+            <div className='m-5'>
+              Jūsu reakciju testu rezultāti: 
+              <ul className='list-disc'>
+                {displayResults}
+              </ul>
+
+            </div>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={saveData}>
               Saglabāt
             </button>
-
-            <pre>
-              {JSON.stringify(data, null, 3)}
-            </pre>
           </>
         )
       }
@@ -142,8 +150,6 @@ function Home() {
           Paldies par dalību!
         </div>
       }
-
-
 		</div>
 	)
 }

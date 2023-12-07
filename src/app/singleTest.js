@@ -2,23 +2,23 @@
 import React, { useState, useEffect } from 'react'
 
 const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [startTime, setStartTime] = useState(null);
-  const [testActive, setTestActive] = useState(false);
-  const [listeningToInput, setListeningToInput] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [startTime, setStartTime] = useState(null)
+  const [testActive, setTestActive] = useState(false)
+  const [listeningToInput, setListeningToInput] = useState(false)
   const [allLetters, setAllLetters] = useState([])
   const [currentLetter, setCurrentLetter] = useState()
   const [showCross, setShowCross] = useState(false)
-  const targetLetter = 'T';
+  const targetLetter = 'T'
 
   const generateRandomLetter = () => {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').filter(letter => letter !== targetLetter);
-    const randomIndex = Math.floor(Math.random() * letters.length);
-    return letters[randomIndex];
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').filter(letter => letter !== targetLetter)
+    const randomIndex = Math.floor(Math.random() * letters.length)
+    return letters[randomIndex]
   }
 
   const generateRandomArray = (length) => {
-    return Array.from({ length }, () => generateRandomLetter());
+    return Array.from({ length }, () => generateRandomLetter())
   }
 
   const placeT = (arr) => {
@@ -34,16 +34,16 @@ const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) =
     if(testNumber == 3) {
       index = 29
     }
-    const newArray = [...arr];
-    newArray.splice(index, 0, targetLetter);
-    return newArray;
-  };
+    const newArray = [...arr]
+    newArray.splice(index, 0, targetLetter)
+    return newArray
+  }
 
   const handleKeyDown = (event) => {
     if (listeningToInput) {
-      const userResponseTime = performance.now() - startTime;
+      const userResponseTime = performance.now() - startTime
       setReactionTime(userResponseTime)
-      setListeningToInput(false);
+      setListeningToInput(false)
     }
   }
 
@@ -65,8 +65,8 @@ const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) =
         setCurrentLetter("")
         setTimeout(() => {
           showNextLetter()
-        }, 50); // Pause between
-      }, 150); // Time letter is shown
+        }, 50) // Pause between
+      }, 150) // Time letter is shown
       
     } else if (testActive && currentIndex === allLetters.length) {
       setCurrentLetter("")
@@ -79,7 +79,7 @@ const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) =
       }, 3000)
 
     }
-  }, [currentIndex, testActive, allLetters.length, showCross]);
+  }, [currentIndex, testActive, allLetters.length, showCross])
 
   const startTest = () => {
     setShowCross(true)
@@ -89,16 +89,16 @@ const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) =
   }
 
   const showNextLetter = () => {
-    const thisLetter = allLetters[currentIndex];
+    const thisLetter = allLetters[currentIndex]
     setCurrentLetter(allLetters[currentIndex])    
     if (currentIndex < allLetters.length) {
       if (thisLetter === targetLetter) {
         setListeningToInput(true)
-        setStartTime(performance.now());
+        setStartTime(performance.now())
       }
     }
-    setCurrentIndex((prevIndex) => prevIndex + 1);
-  };
+    setCurrentIndex((prevIndex) => prevIndex + 1)
+  }
 
   return (
     <div className='flex flex-col justify-center items-center'>
@@ -122,7 +122,7 @@ const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) =
       }
       
     </div>
-  );
-};
+  )
+}
 
-export default Test;
+export default Test

@@ -1,8 +1,8 @@
 "use client"
 import React from 'react'
-import 'survey-core/defaultV2.min.css';
+import 'survey-core/defaultV2.min.css'
 import { Model } from 'survey-core'
-import { Survey } from 'survey-react-ui';
+import { Survey } from 'survey-react-ui'
 
 
 const surveyJson = {
@@ -139,13 +139,13 @@ const surveyJson = {
   {
     type: "checkbox",
     name: "hobiji",
-    title: "Kādi ir jūsu hobiji?",
+    title: "Kādi ir jūsu hobiji/brīvā laika nodarbošanās?",
     description: "Iespējamas vairākas atbildes",
     isRequired: true,
     choices: [
       {
         value: "speles",
-        text: "Videospeles, datorspēles"
+        text: "Videospēles, datorspēles"
       },
       {
         value: "ara_aktivitates",
@@ -188,28 +188,89 @@ const surveyJson = {
     isRequired: true,
     choices: [
       {
-        value: "maz",
-        text: "Maz"
+        value: "katru_dienu",
+        text: "Katru dienu"
       },
       {
-        value: "daudz",
-        text: "Daudz"
+        value: "dazas_reizes_nedela",
+        text: "Dažas reizes nedēļā"
       },
-    ]
-  }
+      {
+        value: "dazas_reizes_menesi",
+        text: "Dažas reizes mēnesī"
+      }
+    ],
+    showOtherItem: true,
+    otherPlaceholder: {
+      default: "",
+    },
+    otherText: {
+      default: "Cits",
+    },
+  },
 
-]
-};
+  {
+      visibleIf: "{hobiji} contains 'speles'",
+      type: "checkbox",
+      name: "speles_veidi",
+      title: "Kāda veida datorspēles Jūs spēlējat? (Ja neviens no žanriem neatbilst, izvēlaties opciju \"Cits\" un norādiet biežāk spēlētāko spēļu nosaukumus)",
+      isRequired: true,
+      choices: [
+        {
+          value: "sausana",
+          text: "Šāvēji, kaujas spēles"
+        },
+        {
+          value: "simulatori",
+          text: "Simulatori (vadītāji)"
+        },
+        {
+          value: "strategijas",
+          text: "Stratēģijas"
+        },
+        {
+          value: "piedzivojumi",
+          text: "Piedzīvojumi"
+        },
+        {
+          value: "muzikas",
+          text: "Mūzikas spēles (ritma spēles)"
+        },
+        {
+          value: "lomu",
+          text: "Lomu spēles"
+        },
+        {
+          value: "logiskas",
+          text: "Loģiskās spēles"
+        },
+        {
+          value: "galda",
+          text: "Galda spēles"
+        },
+        {
+          value: "teksta",
+          text: "Teksta spēles"
+        },
+      ],
+      showOtherItem: true,
+      otherPlaceholder: {
+        default: "",
+      },
+      otherText: {
+        default: "Cits",
+      },
+    }
+  ]
+}
 
 
 const SurveyMy = ({setPhase, data, setData}) => {
   const survey = new Model(surveyJson)
   survey.onComplete.add((sender, options) => {
-    console.log(JSON.stringify(sender.data, null, 3))
     sender.showCompletedPage = false
     setPhase("test")
     setData({...data, surveyAnswers: sender.data})
-
   })
 
   return (
