@@ -40,7 +40,7 @@ function Home() {
 
   // [2, 3, 1]
   const displayResults = order.map((number, index) => (
-    <li key={index + 1}>{index + 1}. tests: {data[`result${number}`] != null ? Math.round(data[`result${number}`]) : "Nav fiksēts"} ms</li>
+    <li key={index + 1}>{index + 1}. tests: {data[`result${number}`] != null ? Math.round(data[`result${number}`]) : "Nav fiksēts"} ms (milisekundes)</li>
   ))
 
 
@@ -138,7 +138,7 @@ function Home() {
               </ul>
 
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={saveData}>
+            <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-4 px-12 rounded w-50" onClick={saveData}>
               Saglabāt
             </button>
           </>

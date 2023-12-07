@@ -107,7 +107,7 @@ const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) =
       </div>
 
       {testActive &&
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={handleKeyDown}>
+        <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-4 px-12 rounded w-50" onClick={handleKeyDown}>
           Spied šeit
         </button>
       }
@@ -115,7 +115,7 @@ const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) =
     
       {!testActive &&
         <>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" disabled={listeningToInput} onClick={startTest}>
+          <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-4 px-12 rounded w-50" disabled={listeningToInput} onClick={startTest}>
             Sākt testu
           </button>
         </> 
