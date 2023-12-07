@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 
-const Test = ({testNumber, setReactionTime, setIsActive, setShowTutorial}) => {
+const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startTime, setStartTime] = useState(null);
   const [testActive, setTestActive] = useState(false);
@@ -58,9 +58,9 @@ const Test = ({testNumber, setReactionTime, setIsActive, setShowTutorial}) => {
       setCurrentLetter("+")
       setTimeout(() => {
         setShowCross(false)
-      }, 3000);
+      }, 3000)
     }
-    if (testActive && !showCross &&currentIndex < allLetters.length) {
+    if (testActive && !showCross && currentIndex < allLetters.length) {
       setTimeout(() => {
         setCurrentLetter("")
         setTimeout(() => {
@@ -69,18 +69,22 @@ const Test = ({testNumber, setReactionTime, setIsActive, setShowTutorial}) => {
       }, 150); // Time letter is shown
       
     } else if (testActive && currentIndex === allLetters.length) {
-      setListeningToInput(false)
-      setTestActive(false)
-      setIsActive(true)
-      setCurrentIndex(0)
-      setShowTutorial(true)
+      setCurrentLetter("")
+      setTimeout(() => {
+        setListeningToInput(false)
+        setTestActive(false)
+        setTestFinished(true)
+        setCurrentIndex(0)
+        setShowTutorial(true)
+      }, 3000)
+
     }
   }, [currentIndex, testActive, allLetters.length, showCross]);
 
   const startTest = () => {
     setShowCross(true)
     setTestActive(true)
-    setIsActive(false)  
+    setTestFinished(false)  
     setShowTutorial(false)
   }
 

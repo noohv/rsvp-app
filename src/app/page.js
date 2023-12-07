@@ -16,7 +16,7 @@ function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTest, setCurrentTest] = useState(0)
 	const [order, setOrder] = useState([])
-  const [isActive, setIsActive] = useState(false)
+  const [testFinished, setTestFinished] = useState(false)
   const [data, setData] = useState({
     surveyAnswers: null,
     result1: null,
@@ -30,11 +30,18 @@ function Home() {
     .insert([
       data
     ])
-    console.log(error)
+    if(error == null) {
+      handleReset()
+    }
+    else {
+      console.error(error)
+    }
   }
 
-  const handleReset = (e) => {
-    setPhase("survey")
+
+
+  const handleReset = () => {
+    setPhase("finished")
     setData({
       surveyAnswers: null,
       result1: null,
@@ -59,19 +66,19 @@ function Home() {
 	useEffect(() => {
     setCurrentTest(order[currentIndex])
 
-    if(isActive) {
+    if(testFinished) {
       if(currentIndex < order.length) {
         setData({...data, [`result${order[currentIndex]}`]: reactionTime})
         setReactionTime(null)
       }
-      setIsActive(false)
-      setCurrentIndex((prevIndex) => prevIndex + 1);
+      setCurrentIndex((prevIndex) => prevIndex + 1)
+      setTestFinished(false)
     }
-    if(currentIndex == 3 && !isActive) {
+    if(currentIndex == 3 && !testFinished) {
       setPhase("save")
     }
     
-  }, [reactionTime, order, isActive])
+  }, [reactionTime, order, testFinished])
 
 	return (
 		<div className='flex flex-col min-h-screen justify-center items-center'>
@@ -81,22 +88,37 @@ function Home() {
         </>
       }
 
-      {phase === "test" &&
+      {(phase === "test" && !testFinished) &&
         <>
 
           {showTutorial &&
             <Tutorial currentIndex={currentIndex}/>
           }
           {currentTest == 1 && 
-            <Test testNumber={1} setReactionTime={setReactionTime} setIsActive={setIsActive} setShowTutorial={setShowTutorial}/>
+            <Test 
+              testNumber={1}
+              setReactionTime={setReactionTime} 
+              setTestFinished={setTestFinished} 
+              setShowTutorial={setShowTutorial}
+            />
           }
 
           {currentTest == 2 && 
-            <Test testNumber={2} setReactionTime={setReactionTime} setIsActive={setIsActive} setShowTutorial={setShowTutorial}/>
+            <Test 
+              testNumber={2} 
+              setReactionTime={setReactionTime} 
+              setTestFinished={setTestFinished} 
+              setShowTutorial={setShowTutorial}
+            />
           }
 
           {currentTest == 3 && 
-            <Test testNumber={3} setReactionTime={setReactionTime} setIsActive={setIsActive} setShowTutorial={setShowTutorial}/>
+            <Test 
+              testNumber={3} 
+              setReactionTime={setReactionTime} 
+              setTestFinished={setTestFinished} 
+              setShowTutorial={setShowTutorial}
+            />
           }
         </>
       }
@@ -104,11 +126,8 @@ function Home() {
       {phase === "save" && 
         (
           <>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={handleReset}>
-              Uz sākumu
-            </button>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-50" onClick={saveData}>
-              Saglabat
+              Saglabāt
             </button>
 
             <pre>
@@ -116,6 +135,12 @@ function Home() {
             </pre>
           </>
         )
+      }
+
+      {phase === "finished" && 
+        <div>
+          Paldies par dalību!
+        </div>
       }
 
 
