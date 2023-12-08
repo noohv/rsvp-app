@@ -13,15 +13,25 @@ function Home() {
   const [phase, setPhase] = useState("survey")
   const [showTutorial, setShowTutorial] = useState(true)
   const [reactionTime, setReactionTime] = useState(null)
+  const [clickCount, setClickCount] = useState(0)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [currentTest, setCurrentTest] = useState(0)
 	const [order, setOrder] = useState([])
   const [testFinished, setTestFinished] = useState(false)
   const [data, setData] = useState({
-    surveyAnswers: null,
-    result1: null,
-    result2: null,
-    result3: null
+    survey_answers: null,
+    test1: {
+      result: null,
+      clickCount: 0
+    },
+    test2: {
+      result: null,
+      clickCount: 0
+    },
+    test3: {
+      result: null,
+      clickCount: 0
+    }
   })
 
   const saveData = async (e) => {
@@ -38,19 +48,28 @@ function Home() {
     }
   }
 
-  // [2, 3, 1]
   const displayResults = order.map((number, index) => (
-    <li key={index + 1}>{index + 1}. tests: {data[`result${number}`] != null ? Math.round(data[`result${number}`]) : "Nav fiksēts"} ms (milisekundes)</li>
+    <li key={index + 1}>
+      {index + 1}. tests: {data[`test${number}`].result != null ? Math.round(data[`test${number}`].result) : "Nav fiksēts"} ms (milisekundes)
+    </li>
   ))
-
 
   const handleReset = () => {
     setPhase("finished")
     setData({
-      surveyAnswers: null,
-      result1: null,
-      result2: null,
-      result3: null
+      survey_answers: null,
+      test1: {
+        result: null,
+        clickCount: 0
+      },
+      test2: {
+        result: null,
+        clickCount: 0
+      },
+      test3: {
+        result: null,
+        clickCount: 0
+      }
     })
     shuffleOrder()
     setReactionTime(null)
@@ -72,7 +91,13 @@ function Home() {
 
     if(testFinished) {
       if(currentIndex < order.length) {
-        setData({...data, [`result${order[currentIndex]}`]: reactionTime})
+        setData({
+          ...data,
+          [`test${order[currentIndex]}`]: {
+            result: reactionTime,
+            clickCount: clickCount
+          }
+        })
         setReactionTime(null)
       }
       setCurrentIndex((prevIndex) => prevIndex + 1)
@@ -105,6 +130,7 @@ function Home() {
               setReactionTime={setReactionTime} 
               setTestFinished={setTestFinished} 
               setShowTutorial={setShowTutorial}
+              setClickCount={setClickCount}
             />
           }
 
@@ -114,6 +140,7 @@ function Home() {
               setReactionTime={setReactionTime} 
               setTestFinished={setTestFinished} 
               setShowTutorial={setShowTutorial}
+              setClickCount={setClickCount}
             />
           }
 
@@ -123,6 +150,7 @@ function Home() {
               setReactionTime={setReactionTime} 
               setTestFinished={setTestFinished} 
               setShowTutorial={setShowTutorial}
+              setClickCount={setClickCount}
             />
           }
         </>

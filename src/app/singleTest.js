@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 
-const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) => {
+const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial, setClickCount}) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [startTime, setStartTime] = useState(null)
   const [testActive, setTestActive] = useState(false)
@@ -45,6 +45,7 @@ const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) =
       setReactionTime(userResponseTime)
       setListeningToInput(false)
     }
+    setClickCount(prev => prev + 1)
   }
 
   useEffect(() => {
@@ -86,6 +87,7 @@ const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial}) =
     setTestActive(true)
     setTestFinished(false)  
     setShowTutorial(false)
+    setClickCount(0)
   }
 
   const showNextLetter = () => {
