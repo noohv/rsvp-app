@@ -50,7 +50,7 @@ function Home() {
 
   const displayResults = order.map((number, index) => (
     <li key={index + 1}>
-      {index + 1}. tests: {data[`test${number}`].result != null ? Math.round(data[`test${number}`].result) : "Nav fiksēts"} ms (milisekundes)
+      {index + 1}. tests: {data[`test${number}`].result != null ? `${Math.round(data[`test${number}`].result)} ms (milisekundes)` : "Nav fiksēts"}
     </li>
   ))
 

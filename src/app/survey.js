@@ -10,7 +10,7 @@ const surveyJson = {
     name: "page1",
     elements: [{
       type: "html",
-      html: "<h3>Labdien!</h3> </br> <h4>Esmu Latvijas Universitātes Datorzinātņu 4. kursa students Valters Hūns un veicu pētījumu par vizuālo uzmanību un cilvēka reakcijas laiku. Dalība kopumā aizņems aptuveni 10 minūtes </br></br> Paldies par atsaucību!</h4>"
+      html: "<h3>Labdien!</h3> </br> <h4>Esmu Latvijas Universitātes Datorzinātņu 4. kursa students Valters Hūns un veicu pētījumu par vizuālo uzmanību un cilvēka reakcijas laiku. Dalība kopumā aizņems aptuveni 5-10 minūtes. </br></br> Paldies par atsaucību!</h4>"
     }]
   }, {
     name: "page2",
