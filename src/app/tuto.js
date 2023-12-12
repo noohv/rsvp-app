@@ -5,15 +5,15 @@ const Tutorial = ({currentIndex}) => {
     <div className='absolute top-50 right-50 w-2/4'>
         {currentIndex == 0 && 
             <p className='text-justify'>
-                Tālāk būs 3 testi. Katra testā sākumā aptuveni divas sekundes tiks rādīts '+' simbols, pēc tā ļoti ātri sāks mainīties burti.
-                Brīdī, kad redzi burtu <b>'T'</b> pēc iespējas ātrāk nospied uz pogas <b>"Spied šeit"</b>.
-                Ja viss ir skaidrs, tad spied uz <b>"Sākt testu"</b>.
+                Tālāk būs 3 testi. Katra testā sākumā aptuveni divas sekundes tiks rādīts &apos;+&apos; simbols, pēc tā ļoti ātri sāks mainīties burti.
+                Brīdī, kad redzi burtu <b>&apos;T&apos;</b> pēc iespējas ātrāk nospied uz pogas <b>&quot;Spied šeit&quot;</b>.
+                Ja viss ir skaidrs, tad spied uz <b>&quot;Sākt testu&quot;</b>.
             </p>
         }
 
         {(currentIndex == 1 || currentIndex == 2) && 
             <p className='text-justify'>
-                Spied <b>"Sākt testu"</b>, lai sāktu nākamo testu.
+                Spied <b>&quot;Sākt testu&quot;</b>, lai sāktu nākamo testu.
             </p>
         }
     </div>
