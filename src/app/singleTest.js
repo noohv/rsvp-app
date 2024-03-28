@@ -1,130 +1,132 @@
-"use client"
-import React, { useState, useEffect } from 'react'
+"use client";
+import React, { useState, useEffect } from "react";
 
-const Test = ({testNumber, setReactionTime, setTestFinished, setShowTutorial, setClickCount}) => {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [startTime, setStartTime] = useState(null)
-  const [testActive, setTestActive] = useState(false)
-  const [listeningToInput, setListeningToInput] = useState(false)
-  const [allLetters, setAllLetters] = useState([])
-  const [currentLetter, setCurrentLetter] = useState()
-  const [showCross, setShowCross] = useState(false)
-  const targetLetter = 'T'
+const Test = ({
+  setReactionTime,
+  setTestFinished,
+  setShowTutorial,
+  setClickCount,
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [startTime, setStartTime] = useState(null);
+  const [testActive, setTestActive] = useState(false);
+  const [listeningToInput, setListeningToInput] = useState(false);
+  const [allLetters, setAllLetters] = useState([]);
+  const [currentLetter, setCurrentLetter] = useState();
+  const [showCross, setShowCross] = useState(false);
+  const targetLetter = "T";
 
   const generateRandomLetter = () => {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').filter(letter => letter !== targetLetter)
-    const randomIndex = Math.floor(Math.random() * letters.length)
-    return letters[randomIndex]
-  }
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      .split("")
+      .filter((letter) => letter !== targetLetter);
+    const randomIndex = Math.floor(Math.random() * letters.length);
+    return letters[randomIndex];
+  };
 
   const generateRandomArray = (length) => {
-    return Array.from({ length }, () => generateRandomLetter())
-  }
+    return Array.from({ length }, () => generateRandomLetter());
+  };
 
   const placeT = (arr) => {
-    let index = 9
-    if(testNumber == 1) {
-      index = 9
-    }
-
-    if(testNumber == 2) {
-      index = 19
-    }
-
-    if(testNumber == 3) {
-      index = 29
-    }
-    const newArray = [...arr]
-    newArray.splice(index, 0, targetLetter)
-    return newArray
-  }
+    const minIndex = 1; // Minimum index to avoid the first element
+    const maxIndex = arr.length - 1; // Maximum index to avoid the last element
+    const index =
+      Math.floor(Math.random() * (maxIndex - minIndex + 1)) + minIndex; // Generate a random index within the specified range
+    const newArray = [...arr];
+    newArray.splice(index, 0, targetLetter);
+    return newArray;
+  };
 
   const handleKeyDown = (event) => {
     if (listeningToInput) {
-      const userResponseTime = performance.now() - startTime
-      setReactionTime(userResponseTime)
-      setListeningToInput(false)
+      const userResponseTime = performance.now() - startTime;
+      setReactionTime(userResponseTime);
+      setListeningToInput(false);
     }
-    setClickCount(prev => prev + 1)
-  }
+    setClickCount((prev) => prev + 1);
+  };
 
   useEffect(() => {
-    if(allLetters.length == 0) {
-      setAllLetters(placeT(generateRandomArray(39)))
+    if (allLetters.length == 0) {
+      setAllLetters(placeT(generateRandomArray(39)));
     }
-  }, [])
-  
+  }, []);
+
   useEffect(() => {
-    if(testActive && showCross && currentIndex == 0) {
-      setCurrentLetter("+")
+    if (testActive && showCross && currentIndex == 0) {
+      setCurrentLetter("+");
       setTimeout(() => {
-        setShowCross(false)
-      }, 2000)
+        setShowCross(false);
+      }, 2000);
     }
     if (testActive && !showCross && currentIndex < allLetters.length) {
       setTimeout(() => {
-        setCurrentLetter("")
+        setCurrentLetter("");
         setTimeout(() => {
-          showNextLetter()
-        }, 50) // Pause between
-      }, 150) // Time letter is shown
-      
+          showNextLetter();
+        }, 50); // Pause between
+      }, 150); // Time letter is shown
     } else if (testActive && currentIndex === allLetters.length) {
-      setCurrentLetter("")
+      setCurrentLetter("");
       setTimeout(() => {
-        setListeningToInput(false)
-        setTestActive(false)
-        setTestFinished(true)
-        setCurrentIndex(0)
-        setShowTutorial(true)
-      }, 2000)
-
+        setListeningToInput(false);
+        setTestActive(false);
+        setTestFinished(true);
+        setCurrentIndex(0);
+        setShowTutorial(true);
+      }, 2000);
     }
-  }, [currentIndex, testActive, allLetters.length, showCross])
+  }, [currentIndex, testActive, allLetters.length, showCross]);
 
   const startTest = () => {
-    setShowCross(true)
-    setTestActive(true)
-    setTestFinished(false)  
-    setShowTutorial(false)
-    setClickCount(0)
-  }
+    setShowCross(true);
+    setTestActive(true);
+    setTestFinished(false);
+    setShowTutorial(false);
+    setClickCount(0);
+  };
 
   const showNextLetter = () => {
-    const thisLetter = allLetters[currentIndex]
-    setCurrentLetter(allLetters[currentIndex])    
+    const thisLetter = allLetters[currentIndex];
+    setCurrentLetter(allLetters[currentIndex]);
     if (currentIndex < allLetters.length) {
       if (thisLetter === targetLetter) {
-        setListeningToInput(true)
-        setStartTime(performance.now())
+        setListeningToInput(true);
+        setStartTime(performance.now());
       }
     }
-    setCurrentIndex((prevIndex) => prevIndex + 1)
-  }
+    setCurrentIndex((prevIndex) => prevIndex + 1);
+  };
 
   return (
-    <div className='flex flex-col justify-center items-center'>
-      <div className='flex h-64 justify-center items-center text-9xl'>
-        {testActive && currentIndex < allLetters.length ? currentLetter : ''}
+    <div className="flex flex-col justify-center items-center">
+      <div className="flex h-64 justify-center items-center text-9xl">
+        {testActive && currentIndex < allLetters.length ? currentLetter : ""}
       </div>
 
-      {testActive &&
-        <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-4 px-12 rounded w-50" onClick={handleKeyDown}>
+      {testActive && (
+        <button
+          className="bg-[#19b394] hover:bg-emerald-700 text-white font-bold py-4 px-12 rounded w-50"
+          onClick={handleKeyDown}
+        >
           Spied šeit
         </button>
-      }
+      )}
 
-    
-      {!testActive &&
+      {!testActive && (
         <>
-          <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-4 px-12 rounded w-50" disabled={listeningToInput} onClick={startTest}>
+          <button
+            className="bg-[#19b394] hover:bg-emerald-700 text-white font-bold py-4 px-12 rounded w-50"
+            disabled={listeningToInput}
+            onClick={startTest}
+          >
             Sākt testu
           </button>
-        </> 
-      }
-      
+        </>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Test
+export default Test;
