@@ -4,7 +4,7 @@ export default function Participant({ setPhase, data, setData }) {
   const [participantId, setParticipantId] = useState("");
   const handleClick = (e) => {
     if (participantId) {
-      setData({ ...data, participantId: participantId });
+      setData({ ...data, participantId: participantId.toLocaleLowerCase() });
       setPhase("test");
     }
   };

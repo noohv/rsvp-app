@@ -29,8 +29,8 @@ const Test = ({
   };
 
   const placeT = (arr) => {
-    const minIndex = 1; // Minimum index to avoid the first element
-    const maxIndex = arr.length - 1; // Maximum index to avoid the last element
+    const minIndex = 5; // Minimum index to avoid the first element
+    const maxIndex = arr.length - minIndex; // Maximum index to avoid the last element
     const index =
       Math.floor(Math.random() * (maxIndex - minIndex + 1)) + minIndex; // Generate a random index within the specified range
     const newArray = [...arr];
@@ -66,7 +66,7 @@ const Test = ({
         setTimeout(() => {
           showNextLetter();
         }, 50); // Pause between
-      }, 150); // Time letter is shown
+      }, 100); // Time letter is shown
     } else if (testActive && currentIndex === allLetters.length) {
       setCurrentLetter("");
       setTimeout(() => {
@@ -101,9 +101,11 @@ const Test = ({
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="flex h-64 justify-center items-center text-9xl">
-        {testActive && currentIndex < allLetters.length ? currentLetter : ""}
-      </div>
+      {testActive && (
+        <div className="flex h-64 justify-center items-center text-9xl">
+          {testActive && currentIndex < allLetters.length ? currentLetter : ""}
+        </div>
+      )}
 
       {testActive && (
         <button
