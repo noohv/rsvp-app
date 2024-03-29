@@ -10,8 +10,10 @@ export default function Participant({ setPhase, data, setData }) {
   };
 
   return (
-    <div className="flex flex-col gap-2 w-[400px] justify-center">
-      <p className="text-center text-xl">Ievadiet savu identifikatoru</p>
+    <div className="flex flex-col gap-2 max-w-[400px] w-[80%] justify-center">
+      <p className="text-center text-lg">
+        Ievadiet identifikatoru, ko izmantojāt aptaujas daļā
+      </p>
       <input
         type="text"
         id="participantId"

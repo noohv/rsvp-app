@@ -97,7 +97,9 @@ function Home() {
         return (
           !testFinished && (
             <>
-              {showTutorial && <Tutorial currentIndex={currentIndex} />}
+              {showTutorial && (
+                <Tutorial currentIndex={currentIndex} data={data} />
+              )}
               {currentTest === 1 && (
                 <>
                   <Test
@@ -137,7 +139,11 @@ function Home() {
         );
 
       case "finished":
-        return <div>Paldies par dalību!</div>;
+        return (
+          <div>
+            <p className="text-xl">Paldies par dalību!</p>
+          </div>
+        );
       default:
         return (
           <Participant setPhase={setPhase} data={data} setData={setData} />
