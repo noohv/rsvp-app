@@ -107,6 +107,7 @@ function Home() {
                     setTestFinished={setTestFinished}
                     setShowTutorial={setShowTutorial}
                     setClickCount={setClickCount}
+                    currentTest={currentTest}
                   />
                 </>
               )}
@@ -118,6 +119,7 @@ function Home() {
                     setTestFinished={setTestFinished}
                     setShowTutorial={setShowTutorial}
                     setClickCount={setClickCount}
+                    currentTest={currentTest}
                   />
                 </>
               )}

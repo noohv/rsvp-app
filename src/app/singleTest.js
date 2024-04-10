@@ -6,6 +6,7 @@ const Test = ({
   setTestFinished,
   setShowTutorial,
   setClickCount,
+  currentTest,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startTime, setStartTime] = useState(null);
@@ -179,7 +180,7 @@ const Test = ({
             disabled={listeningToInput}
             onClick={startTest}
           >
-            Sākt testu
+            {currentTest === 1 ? "Sākt izmēģinājuma testu" : "Sākt testu"}
           </button>
         </>
       )}

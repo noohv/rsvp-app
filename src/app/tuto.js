@@ -16,7 +16,7 @@ const Tutorial = ({ currentIndex, data }) => {
             neparādās. Kad visi burti būs parādīti, tests automātiski beigsies.
             <br></br>
             Ja visi ir nosacījumi ir skaidri un esi gatavs/-a, tad spied uz{" "}
-            <b>&quot;Sākt testu&quot;</b>.
+            <b>&quot;Sākt izmēģinājuma testu&quot;</b>.
           </p>
         )}
         {(currentIndex == 1 || currentIndex == 2) && (
