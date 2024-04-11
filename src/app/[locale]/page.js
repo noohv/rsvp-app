@@ -1,13 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { supabase } from "../../lib/initSupabase";
+import { supabase } from "../../../lib/initSupabase";
 import dynamic from "next/dynamic";
-import Test from "./singleTest";
-import Tutorial from "./tuto";
-import Participant from "./Participant";
-import Result from "./Result";
+import Test from "../singleTest";
+import Tutorial from "../tuto";
+import Participant from "../Participant";
+import Result from "../Result";
+import { useTranslations } from "next-intl";
 
-const SurveyMy = dynamic(() => import("./survey"), {
+const SurveyMy = dynamic(() => import("../survey"), {
   ssr: false,
 });
 
@@ -20,6 +21,7 @@ function Home() {
   const [currentTest, setCurrentTest] = useState(0);
   const [order, setOrder] = useState([1, 2]);
   const [testFinished, setTestFinished] = useState(false);
+  const t = useTranslations("Index");
   const [data, setData] = useState({
     survey_answers: null,
     test1: {
@@ -135,7 +137,7 @@ function Home() {
               className="bg-[#19b394] hover:bg-emerald-700 text-white font-bold py-4 px-12 rounded w-50"
               onClick={saveData}
             >
-              Saglabāt
+              {t("save")}
             </button>
           </>
         );
@@ -143,7 +145,7 @@ function Home() {
       case "finished":
         return (
           <div>
-            <p className="text-xl">Paldies par dalību!</p>
+            <p className="text-xl">{t("thank-you")}</p>
           </div>
         );
       default:

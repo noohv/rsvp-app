@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 const Test = ({
   setReactionTime,
@@ -8,6 +9,7 @@ const Test = ({
   setClickCount,
   currentTest,
 }) => {
+  const t = useTranslations("Index");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startTime, setStartTime] = useState(null);
   const [testActive, setTestActive] = useState(false);
@@ -169,7 +171,7 @@ const Test = ({
           className="bg-[#19b394] hover:bg-emerald-700 text-white font-bold py-4 px-12 rounded w-50"
           onClick={handleKeyDown}
         >
-          Spied šeit
+          {t("click-here")}
         </button>
       )}
 
@@ -180,7 +182,7 @@ const Test = ({
             disabled={listeningToInput}
             onClick={startTest}
           >
-            {currentTest === 1 ? "Sākt izmēģinājuma testu" : "Sākt testu"}
+            {currentTest === 1 ? t("start-trial") : t("start-test")}
           </button>
         </>
       )}

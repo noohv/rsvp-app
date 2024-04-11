@@ -1,0 +1,20 @@
+{
+  "Index": {
+    "participant-identifier-title": "Ievadiet identifikatoru, ko izmantojāt aptaujas daļā",
+    "next": "Tālāk",
+    "thank-you": "Paldies par dalību!",
+    "tutorial": "Pirmais tests būs izmēģinājums un otrajā testā tiks fiksēts rezultāts. Testa sākumā divas sekundes tiks parādīts '+' simbols. Tad automātiski, ļoti ātrā tempā sāks mainīties burti. Mērķis ir pēc iespējas ātrāk nospiest pogu \"Spied šeit\" brīdī, kad redzi burtu 'T'. Nospiežot pogu tests neapstāsies, tādēļ nespied to vairākas reizes, ja burts 'T' vairāk neparādās. Kad visi burti būs parādīti, tests automātiski beigsies.",
+    "tutorial2": "Ja visi ir nosacījumi ir skaidri un esi gatavs/-a, tad spied uz ",
+    "start-trial-text": "\"Sākt izmēģinājuma testu\"",
+    "start-trial": "Sākt izmēģinājuma testu",
+    "start-test": "Sākt testu",
+    "trial-result": "Izmēģinājuma rezultāts: ",
+    "click-here": "Spied šeit",
+    "your-results": "Jūsu reakciju testu rezultāti: ",
+    "no-result": "Nav fiksēts",
+    "ms": "ms (milisekundes)",
+    "test": "tests",
+    "to-start": ", lai sāktu testu",
+    "save": "Saglabāt"
+  }
+}

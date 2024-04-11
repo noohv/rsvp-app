@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function Participant({ setPhase, data, setData }) {
+  const t = useTranslations("Index");
   const [participantId, setParticipantId] = useState("");
   const handleClick = (e) => {
     if (participantId) {
@@ -11,9 +13,7 @@ export default function Participant({ setPhase, data, setData }) {
 
   return (
     <div className="flex flex-col gap-2 max-w-[400px] w-[80%] justify-center">
-      <p className="text-center text-lg">
-        Ievadiet identifikatoru, ko izmantojāt aptaujas daļā
-      </p>
+      <p className="text-center text-lg">{t("participant-identifier-title")}</p>
       <input
         type="text"
         id="participantId"
@@ -25,7 +25,7 @@ export default function Participant({ setPhase, data, setData }) {
         className="bg-[#19b394] hover:bg-emerald-700 text-white py-2 px-4 rounded h-[50px]"
         onClick={handleClick}
       >
-        Turpināt
+        {t("next")}
       </button>
     </div>
   );

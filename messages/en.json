@@ -1,0 +1,20 @@
+{
+  "Index": {
+    "participant-identifier-title": "Enter the identifier you used in the survey part",
+    "next": "Next",
+    "thank-you": "Thank you for participating!",
+    "tutorial": "The first test will be a trial and the second test will record the result. A '+' symbol will be displayed for two seconds at the start of the test. Then automatically, at a very fast pace, the letters will start to change. The goal is to hit the \"Click Here\" button as quickly as possible when you see the letter 'T'. Pressing the button will not stop the test, so do not press it several times if the letter 'T' no longer appears. When all the letters are displayed, the test will automatically end.",
+    "tutorial2": "If all the conditions are clear and you are ready, click on ",
+    "start-trial-text": "\"Start Trial Test\"",
+    "start-trial": "Start Trial Test",
+    "start-test": "Start Test",
+    "trial-result": "Trial result: ",
+    "click-here": "Click Here",
+    "your-results": "Your results: ",
+    "no-result": "No result",
+    "ms": "ms (milliseconds)",
+    "test": "test",
+    "to-start": " to start test",
+    "save": "Save"
+  }
+}
