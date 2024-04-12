@@ -21,7 +21,7 @@ const Tutorial = ({ currentIndex, data }) => {
               {t("trial-result")}
               {data.test1.result != null
                 ? `${Math.round(data.test1.result)} ${t("ms")}`
-                : t("no-input")}
+                : t("no-result")}
             </p>
             <p className="text-center mt-5">
               <b>&quot;{t("start-test")}&quot;</b>
